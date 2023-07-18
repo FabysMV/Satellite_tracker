@@ -1,5 +1,5 @@
-#define INTERVAL_MS_PRINT 50 
-unsigned long lastPrintMillis = 0;
+/*#define INTERVAL_MS_PRINT 50 
+unsigned long lastPrintMillis = 0;*/
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // UPDATES:
 // SE ELIMINÓ LA FUNCIÓN SWITCH POR SER COMPLETAMENTE INECESARIA, LAS FUNCIONES SE LLAMAN DIRECTAMENTE DESDE
@@ -89,24 +89,6 @@ void setup() {
   pid_c.init_pid(); //inicializa control PID para cenit
   azimut.SetUp(pinA);  //se prepara motor para azimut en su pin correspondiente
   cenit.SetUp(pinC);   //se prepara motor para cenit en su pin correspondiente
-  euler.IMU_inicializar();   // Inicializando IMU
-  //euler.CalibrateGyro();  //calibrando imu
-  
-//////// ENTRAR EN LOOP HASTA QUE SE PRESIONE EL BOTÓN DE CONEXIÓN///////////
-//  do{
-//    Serial.println("Presiona el botón para continuar");
-//    estate_b = digitalRead(boton);
-//    delay(1000);
-//    }while(estate_b == LOW);
-//    
-//  euler.CalibrateMag();
-//////// ENTRAR EN LOOP HASTA QUE SE PRESIONE EL BOTÓN DE CONEXIÓN///////////
-  do{
-    Serial.println("Presiona el botón para continuar");
-    estate_b = digitalRead(boton);
-    delay(1000);
-     
-    }while(estate_b == LOW);
 /////MOVIMIENTO PRUEBA DE LOS MOTORES////////////////////////////////////////
 
   Serial.println("Inicializando prueba de motores en 5 segundos...");
@@ -128,7 +110,27 @@ void setup() {
   /*Serial.println("Inicializando conexión en 5 segundos...");
   delay(5000);
   track.Connect();
-  delay(2000);*/ 
+  delay(2000);*/
+  
+  euler.IMU_inicializar();   // Inicializando IMU
+  //euler.CalibrateGyro();  //calibrando imu
+  
+//////// ENTRAR EN LOOP HASTA QUE SE PRESIONE EL BOTÓN DE CONEXIÓN///////////
+//  do{
+//    Serial.println("Presiona el botón para continuar");
+//    estate_b = digitalRead(boton);
+//    delay(1000);
+//    }while(estate_b == LOW);
+//    
+//  euler.CalibrateMag();
+//////// ENTRAR EN LOOP HASTA QUE SE PRESIONE EL BOTÓN DE CONEXIÓN///////////
+  do{
+    Serial.println("Presiona el botón para continuar");
+    estate_b = digitalRead(boton);
+    delay(1000);
+     
+    }while(estate_b == LOW);
+ 
 }
 
 void loop() {
@@ -144,16 +146,12 @@ void loop() {
       pid_a.init_pid();
       pid_c.init_pid();
      //se guarda en otra variable el valor del tiempo en milisegundos, servirá para utilizar el IMU
-      unsigned long currentMillis = millis(); 
-      if(currentMillis - lastPrintMillis > INTERVAL_MS_PRINT)
-      {
+     
         euler.calculaEulerAngles();
         //se guardan en variables los valores de Roll y Yaw        
         R = euler.GetRoll();
         Y = euler.GetYaw();
-        lastPrintMillis = currentMillis; //se guarda el valor del tiempo en el que se actualizó por ultima vez el imu
-       }
-      
+       
      
       Serial.print(R);
       Serial.print(',');
