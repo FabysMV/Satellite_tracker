@@ -90,7 +90,7 @@ void setup() {
   azimut.SetUp(pinA);  //se prepara motor para azimut en su pin correspondiente
   cenit.SetUp(pinC);   //se prepara motor para cenit en su pin correspondiente
   euler.IMU_inicializar();   // Inicializando IMU
-  euler.CalibrateGyro();  //calibrando imu
+  //euler.CalibrateGyro();  //calibrando imu
   
 //////// ENTRAR EN LOOP HASTA QUE SE PRESIONE EL BOTÓN DE CONEXIÓN///////////
 //  do{
