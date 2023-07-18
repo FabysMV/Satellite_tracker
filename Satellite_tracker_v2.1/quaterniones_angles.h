@@ -1,9 +1,9 @@
-#include "MPU9250.h" 
+#include <MPU9250.h>
 #define MPU9250_IMU_ADDRESS 0x68 
 #define MAGNETIC_DECLINATION 3.67 // To be defined by user 
-//#define INTERVAL_MS_PRINT 10 
+#define INTERVAL_MS_PRINT 10 
 MPU9250 mpu; 
-//unsigned long lastPrintMillis = 0; 
+unsigned long lastPrintMillis = 0; 
 /*Conexión:
  VCC = 3.3V
  GND = GND
@@ -78,15 +78,19 @@ public:
   void calculaEulerAngles()
   {
      unsigned long currentMillis = millis(); 
-     if (mpu.update())
+     
+     if (mpu.update() && currentMillis - lastPrintMillis > INTERVAL_MS_PRINT)
      { 
          Serial.println("imu aqui");
          Roll = mpu.getRoll(); 
-         Yaw = mpu.getYaw();    
+         Yaw = mpu.getYaw(); 
+         Serial.println(mpu.getRoll());  
+         Serial.println(mpu.getYaw());   
          if(Roll>=0 && Roll <266){Roll = Roll + 90;}
          else if(Roll >= 270 && Roll <=360){Roll = Roll -270;}  
          if(Roll >= 180 && Roll <=270){Roll = 180;}
-         if(Roll >270 && Roll <=370){Roll = 0;}      
+         if(Roll >270 && Roll <=370){Roll = 0;}   
+          lastPrintMillis = currentMillis;    
      } 
   }
 
