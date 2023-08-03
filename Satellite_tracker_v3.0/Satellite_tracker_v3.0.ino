@@ -341,7 +341,7 @@ void loop() {
   Serial.print(delta_a ); //se imprime el valor del timer de los motores para verificar que funcione correctamente
    //Serial.println("");
    Serial.print("\t");
-  Serial.println("-----------------------------------------------")    ;
+  Serial.println("--------")    ;
   //Serial.println("");
  
   }
