@@ -49,10 +49,12 @@ class motor_mov{
 
    void mov(int pin, int vale)
      {
-        Serial.print("Ahi voy con:");
-        Serial.println(vale);
-        Serial.print("Ahi voy con PIN:");
-        Serial.println(pin);
+        Serial.print("Ahi voy con: ");
+        Serial.print(vale);
+        Serial.print("\t");
+        Serial.print("Ahi voy con PIN: ");
+        Serial.print(pin);
+        Serial.print("\t");
         servo.attach(pin);   
         servo.writeMicroseconds(vale);
       //  servo.writeMicroseconds(vale);
@@ -66,7 +68,8 @@ class motor_mov{
       Serial.print("pid anti-horario de ");
       Serial.print(c);
       Serial.print(": ");
-      Serial.println(pid_val);
+      Serial.print(pid_val);
+      Serial.print("\t");
          val = 1500 - pid_val;
              if(val <= 1000){
                  val = 1000;
@@ -77,7 +80,8 @@ class motor_mov{
       
       mov(pin, val); 
       Serial.print("val anti-horario: ");
-      Serial.println(val);
+      Serial.print(val);
+      Serial.print("\t");
                 /* Serial.print(",");
                 Serial.println(val);*/
       }
@@ -89,7 +93,8 @@ class motor_mov{
             Serial.print("pid horario de");
             Serial.print(c);
             Serial.print(": ");
-            Serial.println( pid_val);
+            Serial.print( pid_val);
+            Serial.print("\t");
             val = 1500 -  pid_val ;
               if(val >= 2000){
                 val = 2000;
@@ -99,11 +104,13 @@ class motor_mov{
               mov(pin, val);
               Serial.print("val horario: ");
               Serial.println(val);
+              Serial.print("\t");
               
            
            mov(pin, val); 
           Serial.print("val horario: ");
-          Serial.println(val); 
+          Serial.print(val); 
+          Serial.print("\t");
         
         }
       
