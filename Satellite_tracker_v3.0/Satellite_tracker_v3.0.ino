@@ -159,12 +159,16 @@ void loop() {
        Y = euler.GetYaw()+diff;
        if (Y >359)
        {Y = Y-360;}
+
+       Y = 360- Y;
+  
      
            
    
       Serial.print(R);
       Serial.print(',');
-      Serial.println(Y);
+      Serial.print(Y);
+      Serial.print("\t");
     
 /// en esta linea mandamos a llamar las posiciones deseadas y las actuales y calculamos el error
       error_a = anglez - Y;
@@ -190,11 +194,12 @@ void loop() {
      
       Serial.println(kd_a); */
 //--- Se imprimen los valores de los errores
-      Serial.println("");
+      Serial.print("\t");
       Serial.print("Error de A y C:\t"); 
       Serial.print(error_a);
       Serial.print("\t");
-      Serial.println(error_c);
+      Serial.print(error_c);
+      Serial.print("\t");
       
 //::::::: Calculamos el PID::::::::::::::::::::::::::::::::::::::::::::::::://
     pid_a.Cal_PID(error_a, kp_a, kd_a, ki_a);
@@ -241,13 +246,14 @@ void loop() {
           if (flag_Wifi == true) //si se ha cumplido el tiempo, se realiza la conexión
           {
             //falta poner la línea para realizar la conexión a internet
-            Serial.println("conexión a internet \t");
+            Serial.print("conexión a internet \t");
             //Serial.println(delta_wifi);
             }
        
 //****************************************************************************************************
             Serial.print("count  conexión a internet \t");
-            Serial.println(delta_wifi);//se imprime la cuenta que lleva el timer de la conexión a internet para verificar que funciona correctamente
+            Serial.print(delta_wifi);//se imprime la cuenta que lleva el timer de la conexión a internet para verificar que funciona correctamente
+            Serial.print("\t");
 //****************************************************************************************************
 ////-----asignación de estados para el AZIMUT ////
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -255,7 +261,8 @@ void loop() {
         if(error_a == 0.0)   //apagalo otto apagalo
         {
           azimut.Stop(pinA); //detiene el motor
-          Serial.println("Error cero azimut wuu");
+          Serial.print("Error cero azimut wuu");
+          Serial.print("\t");
         }
         else if(error_a > 0.0)  // si el error es POSITIVO
         {
@@ -304,11 +311,13 @@ void loop() {
         if(error_c == 0.0)   //apagalo otto apagalo
         {
             cenit.Stop(pinC); //para el motor
-            Serial.println("Error cero cenit wuu");
+            Serial.print("Error cero cenit wuu");
+            Serial.print("\t");
         }
         else if(error_c > 0.0) //ERROR POSITIVO
         {
-           Serial.println("Error positivo cenit");
+           Serial.print("Error positivo cenit");
+           Serial.print("\t");
            pid_val_c = pid_c.val_pid();
            if (flag == true){  
             cenit.giro_anti(pid_val_c, pinC, 'c' );}
@@ -317,7 +326,8 @@ void loop() {
         else if (error_c < 0.0) //ERROR NEGATIVO
         {
             //sentido horario
-            Serial.println("Error negativo cenit");
+            Serial.print("Error negativo cenit");
+            Serial.print("\t");
             pid_val_c = pid_c.val_pid();
             if (flag == true){cenit.giro_horario(pid_val_c, pinC, 'c' );}
          }
@@ -328,10 +338,11 @@ void loop() {
      // Serial.println(Y);
      // Serial.print(',');
       //Serial.println(R);
-  Serial.println(delta_a ); //se imprime el valor del timer de los motores para verificar que funcione correctamente
-   Serial.println("");
+  Serial.print(delta_a ); //se imprime el valor del timer de los motores para verificar que funcione correctamente
+   //Serial.println("");
+   Serial.print("\t");
   Serial.println("-----------------------------------------------")    ;
-  Serial.println("");
+  //Serial.println("");
  
   }
   
